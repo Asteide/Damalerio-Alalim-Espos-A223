@@ -1,32 +1,21 @@
+import java.util.List;
+
 public class Phase2 {
-    public static void runPhase2(String sentence) {
+    public static void runPhase2(List<String> tokens) {
         System.out.println("\n===================================================");
         System.out.println("Phase 2 Output (Granular Breakdown):");
 
-        String currentToken = "";
-
-        for (int i = 0; i < sentence.length(); i++) {
-            char currentChar = sentence.charAt(i);
-
-            if (isDelimiter(currentChar)) {
-                if (!currentToken.isEmpty()) {
-                    printToken(currentToken);  // Print the word/number token
-                    currentToken = "";  // Clear the token
-                }
-            } else {
-                currentToken += currentChar;  // Accumulate characters
+        for (String token : tokens) {
+            // Print the token only if it's not a delimiter
+            if (!isDelimiter(token)) {
+                printToken(token);  // Print the token
             }
-        }
-
-        // Print any remaining token
-        if (!currentToken.isEmpty()) {
-            printToken(currentToken);
         }
     }
 
-    // Check if the character is a delimiter
-    private static boolean isDelimiter(char ch) {
-        return " .,!-".indexOf(ch) >= 0;
+    // Check if the token is a delimiter
+    private static boolean isDelimiter(String token) {
+        return " .,!-".contains(token);
     }
 
     // Print the token and its characters
