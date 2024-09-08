@@ -13,9 +13,6 @@ public class Phase2 {
                     printToken(currentToken);  // Print the word/number token
                     currentToken = "";  // Clear the token
                 }
-                if (currentChar != ' ') {  // Skip printing spaces
-                    printToken(Character.toString(currentChar));  // Print the delimiter
-                }
             } else {
                 currentToken += currentChar;  // Accumulate characters
             }
