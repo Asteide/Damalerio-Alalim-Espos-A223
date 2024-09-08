@@ -15,7 +15,7 @@ public class Phase2 {
 
     // Check if the token is a delimiter
     private static boolean isDelimiter(String token) {
-        return " .,!-".contains(token);
+        return " .,!-\n".contains(token);  // Check if the token is a delimiter
     }
 
     // Print the token and its characters

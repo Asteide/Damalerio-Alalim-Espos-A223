@@ -11,6 +11,7 @@ public class Main {
         System.out.println("===================================================");
         System.out.println("Hi! Please enter a sentence:");
         String input = scanner.nextLine();  // Read user input
+        System.out.println("Phase 1 Output:");
 
         // List to store tokens
         List<String> tokens = new ArrayList<>();  // Create a list to store tokens
@@ -22,12 +23,10 @@ public class Main {
             if (isDelimiter(currentChar)) {
                 if (!currentToken.isEmpty()) {
                     tokens.add(currentToken);  // Add token to the list
-                    classifyAndPrintToken(currentToken);  // Print the token
                     currentToken = "";  // Reset the token
                 }
-                if (currentChar != ' ') {  // Skip printing spaces
+                if (currentChar != ' ') {  // Skip spaces
                     tokens.add(Character.toString(currentChar));  // Add delimiter to the list
-                    classifyAndPrintToken(Character.toString(currentChar));  // Print the delimiter
                 }
             } else {
                 currentToken += currentChar;  // Accumulate characters
@@ -37,13 +36,20 @@ public class Main {
         // Check if there's any remaining token
         if (!currentToken.isEmpty()) {
             tokens.add(currentToken);  // Add the last token to the list
-            classifyAndPrintToken(currentToken);
         }
+
+        // Print tokens
+        for (String token : tokens) {
+            classifyAndPrintToken(token);  // Print each token
+        }
+
+        // Always print the end-of-line token at the end
+        System.out.println("Token: \"\\n\" - Type: End of Line");
 
         scanner.close();
 
         // Run Phase 2
-        Phase2.runPhase2(tokens);
+        Phase2.runPhase2(tokens);  // Pass the list of tokens to Phase2
     }
 
     // Method to classify and print the token
@@ -65,16 +71,14 @@ public class Main {
             return "Number";
         } else if (token.matches("[a-zA-Z0-9]+")) {
             return "AlphaNumeric";
-        } else if (".,!-".contains(token)) {
+        } else if (".,!-:".contains(token)) {
             return "Punctuation";
-        } else if (token.equals("\n")) {
-            return "End of Line";
         }
         return "Unknown";
     }
 
     // Identify delimiters (punctuation, spaces, etc.)
     private static boolean isDelimiter(char ch) {
-        return " .,!-".indexOf(ch) >= 0;
+        return " .,!-:".indexOf(ch) >= 0;
     }
 }
